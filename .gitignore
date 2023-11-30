@@ -1,0 +1,6 @@
+# clion folders
+.idea
+cmake-*
+*.user
+
+external
