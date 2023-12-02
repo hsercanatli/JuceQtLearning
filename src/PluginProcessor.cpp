@@ -19,9 +19,6 @@ void AudioPluginAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
     if (static_cast<bool>(apvts->getParameter("BYPASS")->getValue()))
         return;
 
-    buffer.applyGain(apvts->getParameter("GAIN")->getValue());
-
-
     auto gain = apvts->getParameter("GAIN")->getValue();
     if (juce::approximatelyEqual(gain, previousGain)) {
         buffer.applyGain(gain);
