@@ -5,7 +5,7 @@
 
 
 namespace {
-    const QString MAIN_QML = "qrc:/src/QML/main.qml";
+    const QUrl MAIN_QML(u"qrc:/qt/qml/sercan/src/QML/main.qml"_qs);
 }// namespace
 
 QMLApplication::QMLApplication(std::shared_ptr<juce::AudioProcessorValueTreeState> apvts)
@@ -15,7 +15,7 @@ QMLApplication::QMLApplication(std::shared_ptr<juce::AudioProcessorValueTreeStat
 
     registerContent();
 
-    qmlView->setSource(QUrl(MAIN_QML));
+    qmlView->setSource(MAIN_QML);
     qmlView->setResizeMode(QQuickView::SizeRootObjectToView);
 }
 

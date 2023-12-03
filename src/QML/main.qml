@@ -157,7 +157,7 @@ Rectangle {
         Image {
             id: knobImage
             anchors.fill: parent
-            source: "qrc:/src/Images/button.png"
+            source: "qrc:/qt/qml/sercan/src/Images/button.png"
             clip: true
         }
 
