@@ -30,8 +30,8 @@ void QMLApplication::initializeControllers() {
 void QMLApplication::registerContent() {
     QQmlContext *context = qmlView->rootContext();
 
-    context->setContextProperty("gainModel", mGainModel.get());
-    context->setContextProperty("gainController", mGainController.get());
+    qmlRegisterSingletonInstance("com.sercan.JuceQtLearning", 1, 0, "GainModel", mGainModel.get());
+    qmlRegisterSingletonInstance("com.sercan.JuceQtLearning", 1, 0, "GainController", mGainController.get());
 
     // others
     // Exposing the system's default monospaced font

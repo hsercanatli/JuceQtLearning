@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 
+import com.sercan.JuceQtLearning 1.0
 import "SharedFunctions.js" as SharedFunctions
 
 
@@ -70,11 +71,11 @@ Rectangle {
             horizontalCenter: parent.horizontalCenter
         }
 
-        from: gainModel?.minGain
-        to: gainModel?.maxGain
+        from: GainModel.minGain
+        to: GainModel.maxGain
 
         inputMode: Dial.Vertical
-        onMoved: gainController?.updateGain(dial.value)
+        onMoved: GainController.updateGain(dial.value)
     }
 
     DropShadow {
@@ -89,7 +90,7 @@ Rectangle {
     Text {
         anchors.top: dial.bottom
         anchors.horizontalCenter: dial.horizontalCenter
-        text: SharedFunctions.round(gainModel?.gain, 2)
+        text: SharedFunctions.round(GainModel.gain, 2)
         font: monoSpacedFont
         color: "white"
     }
@@ -104,7 +105,7 @@ Rectangle {
             bottom: button.top
             bottomMargin: 10
         }
-        color: gainModel.bypass ? "lightgray" : "red"
+        color: GainModel.bypass ? "lightgray" : "red"
         border {
             width: 3
             color: "gray"
@@ -139,7 +140,7 @@ Rectangle {
         spread: 0
         color: Qt.lighter(definitions.colorGlow, 2)
         source: led
-        visible: !gainModel.bypass
+        visible: !GainModel.bypass
     }
 
     Rectangle {
@@ -169,7 +170,7 @@ Rectangle {
         MouseArea {
             id: buttomMouseArea
             anchors.fill: parent
-            onClicked: gainController?.updateBypass(!gainModel.bypass)
+            onClicked: GainController.updateBypass(!GainModel.bypass)
         }
     }
 

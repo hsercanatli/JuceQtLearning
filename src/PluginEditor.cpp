@@ -15,9 +15,7 @@ namespace {
 
 PluginEditor::PluginEditor(AudioPluginAudioProcessor &p)
     : AudioProcessorEditor(p),
-      processorRef(p),
-      mQtApp(QGuiApplication(argc, argv)),
-      qmlApplication(processorRef.apvts) {
+      processorRef(p) {
     qCDebug(qtEditor) << "Creating editor" << this;
 
     setResizable(false, false);
@@ -26,8 +24,11 @@ PluginEditor::PluginEditor(AudioPluginAudioProcessor &p)
     QCoreApplication::setAttribute(Qt::AA_PluginApplication);
     // to get rid of QML style warnings
     QQuickStyle::setStyle("Basic");
-    mJuceQComponent.setWindow(qmlApplication.getQMLView());
 
+    mQtApp = std::make_unique<QGuiApplication>(argc, argv);
+    mQmlApplication = std::make_unique<QMLApplication>(processorRef.apvts);
+
+    mJuceQComponent.setWindow(mQmlApplication->getQMLView());
     addAndMakeVisible(mJuceQComponent);
     childBoundsChanged(&mJuceQComponent);
 }

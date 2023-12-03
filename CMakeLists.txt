@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.15)
 project(JuceQtLearning VERSION 0.0.1)
 
+set(CMAKE_AUTOMOC ON)
+
 find_package(JUCE CONFIG REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Core5Compat)
 

@@ -22,9 +22,9 @@ public:
 private:
     AudioPluginAudioProcessor &processorRef;
 
-    QGuiApplication mQtApp;
+    std::unique_ptr<QGuiApplication> mQtApp;
     JuceQComponent mJuceQComponent;
-    QMLApplication qmlApplication;
+    std::unique_ptr<QMLApplication> mQmlApplication;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PluginEditor)
 };
