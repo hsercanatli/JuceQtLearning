@@ -6,6 +6,9 @@ set(CMAKE_AUTOMOC ON)
 find_package(JUCE CONFIG REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Core5Compat)
 
+add_subdirectory(src/QML/AudioComponents)
+add_subdirectory(src/QML/Utilities)
+
 qt_standard_project_setup()
 # Stop warning about a changed import prefix.
 qt6_policy(SET QTP0001 NEW)
@@ -25,12 +28,15 @@ target_sources(JuceQtLearning
         src/PluginEditor.h
         src/JuceQComponent.h
         src/QMLApplication.h
+        src/Models/GainModel.h
+        src/Controllers/GainController.h
 
         # sources
         src/PluginProcessor.cpp
         src/PluginEditor.cpp
         src/JuceQComponent.cpp
         src/QMLApplication.cpp
+        src/Models/GainModel.cpp
 )
 
 target_compile_definitions(JuceQtLearning
@@ -48,6 +54,8 @@ target_link_libraries(JuceQtLearning
         Qt6::Quick
         Qt6::QuickControls2
         Qt6::Core5Compat
+        UtilitiesLibplugin
+        AudioComponentsLibplugin
         PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
@@ -62,22 +70,8 @@ target_compile_options(juce_recommended_warning_flags INTERFACE
 )
 
 qt_add_qml_module(JuceQtLearning
-        URI sercan
+        URI Sercan
         VERSION 1.0
-
-        QML_FILES
-        src/QML/main.qml
-        src/QML/Definitions.qml
-        src/QML/Knob.qml
-
-        SOURCES
-        src/Models/GainModel.h
-        src/Models/GainModel.cpp
-
-        src/Controllers/GainController.h
-
-        RESOURCES
-        src/QML/SharedFunctions.js
-        src/Images/button.png
+        QML_FILES src/QML/main.qml
 )
 qt_import_qml_plugins(JuceQtLearning)
