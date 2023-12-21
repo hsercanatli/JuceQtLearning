@@ -9,8 +9,9 @@ Q_LOGGING_CATEGORY(qtEditor, "juce.qt.editor")
 using namespace juce;
 
 namespace {
-    int argc = 1;
-    char *argv[] = {const_cast<char *>("")};
+    int argc = 2;
+    // You can attach the running app to the qml profiler of Qt Creator
+    char* argv[2] = { "_", "-qmljsdebugger=port:53944" };
 }// namespace
 
 PluginEditor::PluginEditor(AudioPluginAudioProcessor &p)

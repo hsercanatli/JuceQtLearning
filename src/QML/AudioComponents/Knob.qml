@@ -79,13 +79,13 @@ Dial {
                 }
             }
 
-            color: pressed ? Definitions.colorOutherInnerBorderChecked : "transparent"
+            color: control.pressed ? Definitions.colorOutherInnerBorderChecked : "transparent"
             Behavior on color {
                 ColorAnimation {
                     duration: 150
                 }
             }
-            opacity: pressed ? 0.6 : 1
+            opacity: control.pressed ? 0.6 : 1
             Behavior on opacity {
                 NumberAnimation {
                     duration: 150

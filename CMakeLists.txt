@@ -56,6 +56,7 @@ target_link_libraries(JuceQtLearning
         Qt6::Core5Compat
         UtilitiesLibplugin
         AudioComponentsLibplugin
+
         PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
@@ -75,3 +76,9 @@ qt_add_qml_module(JuceQtLearning
         QML_FILES src/QML/main.qml
 )
 qt_import_qml_plugins(JuceQtLearning)
+
+# Make Qt Creator aware of where the QML modules live
+set (_QML_IMPORT_PATHS "")
+## Add new module paths here.
+list (APPEND _QML_IMPORT_PATHS ${CMAKE_BINARY_DIR}/src/QML)
+set (QML_IMPORT_PATH ${_QML_IMPORT_PATHS} CACHE STRING "Path used to locate CMake modules by Qt Creator" FORCE)
