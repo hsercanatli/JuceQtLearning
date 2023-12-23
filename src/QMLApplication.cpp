@@ -19,8 +19,7 @@ QMLApplication::QMLApplication(std::shared_ptr<juce::AudioProcessorValueTreeStat
 
     auto engine = qmlView->engine();
     engine->addImportPath(IMPORT_PATH);
-    // engine->addPluginPath("/Sercan");
-    // engine->addPluginPath("/src/QML");
+
     qmlView->setSource(MAIN_QML);
     qmlView->setResizeMode(QQuickView::SizeRootObjectToView);
 }
