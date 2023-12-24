@@ -3,10 +3,12 @@ project(JuceQtLearning VERSION 0.0.1)
 
 option(BUILD_STANDALONE_QT_APP False)
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 # packages
 find_package(JUCE CONFIG REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Core5Compat)
+
 
 # Qt standalone app
 if (${BUILD_STANDALONE_QT_APP})
@@ -24,8 +26,9 @@ else()
            COPY_PLUGIN_AFTER_BUILD TRUE
     )
 endif()
-qt_import_qml_plugins(JuceQtLearning)
 
+
+# ------------------- QML ------------------- #
 # qml plugins
 add_subdirectory(src/QML/AudioComponents)
 add_subdirectory(src/QML/Utilities)
@@ -33,6 +36,7 @@ add_subdirectory(src/QML/Utilities)
 set (_QML_IMPORT_PATHS "")
 ## Add new module paths here.
 list (APPEND _QML_IMPORT_PATHS ${CMAKE_BINARY_DIR}/src/QML)
+set (QML_IMPORT_PATH ${_QML_IMPORT_PATHS} CACHE STRING "Path used to locate CMake modules by Qt Creator" FORCE)
 
 qt_add_qml_module(JuceQtLearning
     URI Sercan
@@ -42,7 +46,8 @@ qt_add_qml_module(JuceQtLearning
     SOURCES src/Controllers/GainController.h src/Models/GainModel.h src/Models/GainModel.cpp
     IMPORT_PATH ${_QML_IMPORT_PATHS}
 )
-set (QML_IMPORT_PATH ${_QML_IMPORT_PATHS} CACHE STRING "Path used to locate CMake modules by Qt Creator" FORCE)
+qt_import_qml_plugins(JuceQtLearning)
+# ------------------------------------------- #
 
 
 file(GLOB_RECURSE _headers src/*.h)
@@ -73,7 +78,6 @@ target_link_libraries(JuceQtLearning
         PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
-        juce::juce_recommended_warning_flags
 )
 
 # Ease up on juce_recommended_warning_flags a bit

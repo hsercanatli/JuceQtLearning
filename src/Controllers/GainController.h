@@ -12,13 +12,9 @@ public:
     explicit GainController(std::shared_ptr<GainModel> gainModel)
         : mGainModel(gainModel) {}
 
-    Q_INVOKABLE void updateGain(qreal gain) {
-        mGainModel->updateGain(gain);
-    }
+    Q_INVOKABLE void updateGain(qreal gain);
 
-    Q_INVOKABLE void updateBypass(bool bypass) {
-        mGainModel->updateBypass(bypass);
-    }
+    Q_INVOKABLE void updateBypass(bool bypass);
 
 private:
     std::shared_ptr<GainModel> mGainModel;
