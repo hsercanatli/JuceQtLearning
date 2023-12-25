@@ -2,21 +2,17 @@ import QtQuick
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 
-import com.sercan.JuceQtLearning 1.0
-import "SharedFunctions.js" as SharedFunctions
-
+import com.sercan.JuceQtLearning
+import AudioComponents
+import Utilities
 
 Rectangle {
     id: window
 
-    width: definitions.windowWidth
-    height: definitions.windowHeight
+    width: Definitions.windowWidth
+    height: Definitions.windowHeight
 
     color: "black"
-
-    Definitions {
-        id: definitions
-    }
 
     Rectangle {
         id: background
@@ -24,7 +20,7 @@ Rectangle {
         height: parent.height - radius
         radius: 14
         anchors.centerIn: parent
-        color: definitions.colorGeneralBackground
+        color: Definitions.colorGeneralBackground
     }
 
     InnerShadow {
@@ -47,7 +43,7 @@ Rectangle {
         font.pixelSize: window.height * 0.09
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        color: definitions.colorParameterText
+        color: Definitions.colorParameterText
         text: qsTr("Gain")
     }
 
@@ -56,7 +52,7 @@ Rectangle {
         horizontalOffset: 2
         verticalOffset: 2
         radius: 8.0
-        color: definitions.colorDropShadow
+        color: Definitions.colorDropShadow
         source: paramLabelId
     }
 
@@ -83,7 +79,7 @@ Rectangle {
         horizontalOffset: 4
         verticalOffset: 4
         radius: 8.0
-        color: definitions.colorDropShadow
+        color: Definitions.colorDropShadow
         source: dial
     }
 
@@ -128,7 +124,7 @@ Rectangle {
         horizontalOffset: 3
         verticalOffset: 3
         radius: 8.0
-        color: definitions.colorDropShadow
+        color: Definitions.colorDropShadow
         source: led
     }
 
@@ -138,7 +134,7 @@ Rectangle {
         radius: 8
         samples: 25
         spread: 0
-        color: Qt.lighter(definitions.colorGlow, 2)
+        color: Qt.lighter(Definitions.colorGlow, 2)
         source: led
         visible: !GainModel.bypass
     }
@@ -157,7 +153,7 @@ Rectangle {
         Image {
             id: knobImage
             anchors.fill: parent
-            source: "qrc:/src/Images/button.png"
+            source: "qrc:/sercan.com/imports/AudioComponents/Images/button.png"
             clip: true
         }
 

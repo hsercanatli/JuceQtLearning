@@ -7,7 +7,7 @@ public:
     AudioPluginAudioProcessor();
     ~AudioPluginAudioProcessor() override = default;
 
-    const juce::String getName() const override { return JucePlugin_Name; }
+    const juce::String getName() const override { return "JuceQtLearning"; }
 
     bool hasEditor() const override { return true; }
     juce::AudioProcessorEditor *createEditor() override;

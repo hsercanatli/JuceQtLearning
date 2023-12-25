@@ -1,8 +1,7 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Shapes
 
-import "SharedFunctions.js" as SharedFunctions
+import Utilities
 
 Dial {
     id: control
@@ -57,36 +56,36 @@ Dial {
             Gradient {
                 id: defaultGradientId
                 GradientStop {
-                    position: 0.0; color: definitions.colorKnobDefaultGradientStart
+                    position: 0.0; color: Definitions.colorKnobDefaultGradientStart
                 }
                 GradientStop {
-                    position: 0.5; color: definitions.colorKnobDefaultGradientMid
+                    position: 0.5; color: Definitions.colorKnobDefaultGradientMid
                 }
                 GradientStop {
-                    position: 1.0; color: definitions.colorKnobDefaultGradientEnd
+                    position: 1.0; color: Definitions.colorKnobDefaultGradientEnd
                 }
             }
 
             Gradient {
                 id: pressedGradientId
                 GradientStop {
-                    position: 0.0; color: definitions.colorKnobPressedGradientStart
+                    position: 0.0; color: Definitions.colorKnobPressedGradientStart
                 }
                 GradientStop {
-                    position: 0.5; color: definitions.colorKnobPressedGradientMid
+                    position: 0.5; color: Definitions.colorKnobPressedGradientMid
                 }
                 GradientStop {
-                    position: 1.0; color: definitions.colorKnobPressedGradientEnd
+                    position: 1.0; color: Definitions.colorKnobPressedGradientEnd
                 }
             }
 
-            color: pressed ? definitions.colorOutherInnerBorderChecked : "transparent"
+            color: control.pressed ? Definitions.colorOutherInnerBorderChecked : "transparent"
             Behavior on color {
                 ColorAnimation {
                     duration: 150
                 }
             }
-            opacity: pressed ? 0.6 : 1
+            opacity: control.pressed ? 0.6 : 1
             Behavior on opacity {
                 NumberAnimation {
                     duration: 150
@@ -102,7 +101,7 @@ Dial {
         y: control.background.height / 2 - height / 2
         width: 4
         height: internalId.outerRadius - internalId.innerRadius
-        color: definitions.colorCheckedText
+        color: Definitions.colorCheckedText
         antialiasing: true
         opacity: control.enabled ? 1 : 0.3
         transform: [

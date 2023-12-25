@@ -2,10 +2,12 @@
 #include <QFontDatabase>
 #include <QQmlContext>
 #include <QString>
+#include <QQmlEngine>
 
 
 namespace {
-    const QUrl MAIN_QML(u"qrc:/src/QML/main.qml"_qs);
+    const QUrl MAIN_QML(u"qrc:/sercan.com/imports/Sercan/src/QML/main.qml"_qs);
+    const QString IMPORT_PATH(":/sercan.com/imports");
 }// namespace
 
 QMLApplication::QMLApplication(std::shared_ptr<juce::AudioProcessorValueTreeState> apvts)
@@ -14,6 +16,9 @@ QMLApplication::QMLApplication(std::shared_ptr<juce::AudioProcessorValueTreeStat
     initializeControllers();
 
     registerContent();
+
+    auto engine = qmlView->engine();
+    engine->addImportPath(IMPORT_PATH);
 
     qmlView->setSource(MAIN_QML);
     qmlView->setResizeMode(QQuickView::SizeRootObjectToView);
