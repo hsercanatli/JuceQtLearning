@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 
+import Sercan
 import com.sercan.JuceQtLearning
 import AudioComponents
 import Utilities

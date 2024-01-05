@@ -4,17 +4,24 @@ project(JuceQtLearning VERSION 0.0.1)
 option(BUILD_STANDALONE_QT_APP False)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
+set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
 # packages
 find_package(JUCE CONFIG REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Core5Compat)
+find_package(Spix REQUIRED)
 
+file(GLOB_RECURSE _headers src/*.h)
+file(GLOB_RECURSE _sources src/*.cpp)
+
+qt_standard_project_setup()
+# Stop warning about a changed import prefix.
+qt6_policy(SET QTP0001 NEW)
 
 # Qt standalone app
 if (${BUILD_STANDALONE_QT_APP})
-    qt_add_executable(JuceQtLearning src/main.cpp)
+    qt_add_executable(JuceQtLearning src/main.cpp ${_headers} ${_sources})
 else()
-    qt_standard_project_setup()
     # Stop warning about a changed import prefix.
     qt6_policy(SET QTP0001 NEW)
     # juce plugin
@@ -25,6 +32,8 @@ else()
            FORMATS AU VST3 Standalone
            COPY_PLUGIN_AFTER_BUILD TRUE
     )
+
+    target_sources(JuceQtLearning PRIVATE ${_headers} ${_sources})
 endif()
 
 
@@ -35,7 +44,11 @@ add_subdirectory(src/QML/Utilities)
 # Make Qt Creator aware of where the QML modules live
 set (_QML_IMPORT_PATHS "")
 ## Add new module paths here.
+list (APPEND _QML_IMPORT_PATHS ${CMAKE_BINARY_DIR})
+list (APPEND _QML_IMPORT_PATHS ${CMAKE_BINARY_DIR}/Sercan)
 list (APPEND _QML_IMPORT_PATHS ${CMAKE_BINARY_DIR}/src/QML)
+
+
 set (QML_IMPORT_PATH ${_QML_IMPORT_PATHS} CACHE STRING "Path used to locate CMake modules by Qt Creator" FORCE)
 
 qt_add_qml_module(JuceQtLearning
@@ -46,14 +59,14 @@ qt_add_qml_module(JuceQtLearning
     SOURCES src/Controllers/GainController.h src/Models/GainModel.h src/Models/GainModel.cpp
     IMPORT_PATH ${_QML_IMPORT_PATHS}
 )
-qt_import_qml_plugins(JuceQtLearning)
+set_source_files_properties(src/Controllers/GainController.h PROPERTIES
+        QT_QML_SINGLETON_TYPE  TRUE
+)
+
+if (NOT ${BUILD_STANDALONE_QT_APP})
+    qt_import_qml_plugins(JuceQtLearning)
+endif()
 # ------------------------------------------- #
-
-
-file(GLOB_RECURSE _headers src/*.h)
-file(GLOB_RECURSE _sources src/*.cpp)
-
-target_sources(JuceQtLearning PRIVATE ${_headers} ${_sources})
 
 if(NOT ${BUILD_STANDALONE_QT_APP})
     target_compile_definitions(JuceQtLearning
